@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADA GKM DISINI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        h1 {
+            text-align: center;
+            background-color: rgb(180, 148, 3);
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>GKM OF THE DAY</h1>
+    
+    <form id="scheduleForm">
+        <input type="text" id="agenda" placeholder="Agenda" required>
+        <input type="text" id="waktu" placeholder="Waktu" required>
+        <input type="text" id="tempat" placeholder="Tempat" required>
+        <button type="submit">Tambah</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Agenda</th>
+                <th>Waktu</th>
+                <th>Tempat</th>
+                <th>Status</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody id="scheduleList">
+            <!-- Daftar jadwal akan ditampilkan di sini -->
+        </tbody>
+    </table>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const scheduleForm = document.getElementById('scheduleForm');
+            const agendaInput = document.getElementById('agenda');
+            const waktuInput = document.getElementById('waktu');
+            const tempatInput = document.getElementById('tempat');
+            const scheduleList = document.getElementById('scheduleList');
+
+            scheduleForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const agendaText = agendaInput.value.trim();
+                const waktuText = waktuInput.value.trim();
+                const tempatText = tempatInput.value.trim();
+
+                if (agendaText !== '' && waktuText !== '' && tempatText !== '') {
+                    const newRow = scheduleList.insertRow();
+                    newRow.innerHTML = `
+                        <td>${agendaText}</td>
+                        <td>${waktuText}</td>
+                        <td>${tempatText}</td>
+                        <td><input type="checkbox"></td>
+                        <td><button onclick="removeSchedule(this)">Hapus</button></td>
+                    `;
+
+                    agendaInput.value = '';
+                    waktuInput.value = '';
+                    tempatInput.value = '';
+                }
+            });
+        });
+
+        function removeSchedule(button) {
+            const row = button.parentNode.parentNode;
+            const scheduleList = document.getElementById('scheduleList');
+            scheduleList.removeChild(row);
+        }
+    </script>
+</body>
+</html>
